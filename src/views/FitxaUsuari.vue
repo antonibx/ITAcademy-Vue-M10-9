@@ -1,11 +1,16 @@
 <template>
-  <div>
-    <h1>Usuari {{usuari.id}}: {{usuari.name}}</h1>
-    <table class="table table-striped table-info">
+  <div class="container mt-5">
+    <p class="lead">Usuari {{usuari.id}}</p>
+    <h1><router-link to="/usuaris" style="text-decoration: none">☚</router-link> {{usuari.name}}</h1>
+    <table class="table table-striped table-success">
         <tbody>
             <tr>
+                <th>Id</th>
+                <td>{{usuari.id}}</td>
+            </tr>
+            <tr>
                 <th>Nom</th>
-                <td>{{usuari.name}}</td>
+                <td>{{UsuariMajus}}</td>
             </tr>
             <tr>
                 <th>Usuari</th>
@@ -17,7 +22,13 @@
             </tr>
             <tr>
                 <th>Direcció</th>
-                <td>{{usuari.address}}</td>
+                <td>
+                    <b>Carrer:</b> {{direccio.street}} <br>
+                    <b>Habitació:</b> {{direccio.suite}} <br>        
+                    <b>Ciutat:</b> {{direccio.city}} <br>
+                    <b>Codi postal:</b> {{direccio.zipcode}} <br>
+                    <b>Coordenades:</b> ({{geo.lat}}, {{geo.lng}})
+                </td>
             </tr>
             <tr>
                 <th>Mòbil</th>
@@ -25,35 +36,67 @@
             </tr>
             <tr>
                 <th>Web</th>
-                <td>{{usuari.website}}</td>
+                <td><a :href="web">{{usuari.website}}</a></td>
             </tr>
             <tr>
                 <th>Companyia</th>
-                <td>{{usuari.company}}</td>
+                <td>
+                    <b>Nom:</b> {{companyia.name}} <br>
+                    <b>Eslògan:</b> "{{companyia.catchPhrase}}"<br>
+                    <b>BS:</b> {{companyia.bs}}
+                </td>
             </tr>
         </tbody>
     </table>
-    <router-link to="/usuaris" class="btn btn-primary mb-3">Torna</router-link>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 export default {
     name: 'Usuari',
     data() {
         return {
             usuari: {},
-            url: 'http://jsonplaceholder.typicode.com/users'
+            direccio: {},
+            geo: {},
+            companyia: {},
+            web: ''
         }
     },
+    created() {
+        this.inicialitza();
+        this.$store.commit('visita', {dada: this.usuari, tipus: "user", procedencia: "CREATED"});
+    },
     mounted() {
-        let vue = this;
-        axios.get(vue.url)
-             .then(function(response){
-                vue.usuari = response.data[vue.$route.params.id-1];
-             });
+        this.inicialitza();
+        this.$store.commit('visita', {dada: this.usuari, tipus: "user", procedencia: "MOUNTED"});
+    },
+    updated() {
+        this.inicialitza();
+        this.$store.commit('visita', {dada: this.usuari, tipus: "user", procedencia: "UPDATED"});
+    },
+    computed: {
+      UsuariMajus() {
+          console.log()
+        if (this.usuari.name!=undefined) {
+            return (this.usuari.name).toUpperCase()
+        } else {
+            return (this.usuari.name)
+        }
+      }
+    },
+    methods: {
+        inicialitza() {
+            this.usuari = this.$store.state.usuaris[this.$route.params.id-1];
+            this.direccio = this.usuari.address;
+            this.geo = this.usuari.address.geo;
+            this.companyia = this.usuari.company;
+            this.web = "http://"+this.usuari.website
+        }
     }
 }
-
 </script>
+
+<style scoped>
+    td {text-align: left;}
+</style>

@@ -1,18 +1,23 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container ">
+    <img alt="Vue logo" src="../assets/logo.png" class="m-5">
+    <div class="row d-flex justify-content-around">
+      <Llista msg="Usuaris visitats" :llista="$store.state.usuarisVisitats" class="bg-primary" style="width:45%" />
+      <Llista msg="Fotos visitades" :llista="$store.state.fotosVisitades" class="bg-warning" style="width:45%" />
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import Llista from '@/components/Llista.vue'
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    Llista
+  },
+  data() {
+    return {
+    }
   }
 }
 </script>

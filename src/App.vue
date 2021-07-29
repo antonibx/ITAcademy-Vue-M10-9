@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Header />
-    <router-view/>
-    <Footer />
+    <Header class="header" />
+    <router-view class="animate__animated animate__zoomIn pagina" />
+    <Footer class="footer" />
   </div>
 </template>
 
@@ -15,6 +15,9 @@ export default {
   components: {
     Header,
     Footer
+  }, mounted() {
+    this.$store.dispatch('obtenirUsuaris');
+    this.$store.dispatch('obtenirFotos');
   }
 }
 </script>
@@ -26,19 +29,25 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+}
+.v-fade-enter-active {
+  transition: all 3s ease;
+}
+.v-fade-leave-active {
+  transition: all 8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.v-fade-enter, .v-fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
 }
 
-#nav {
-  padding: 30px;
+.pagina {
+  margin-bottom: 100px;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
 }
 </style>

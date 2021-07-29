@@ -8,14 +8,19 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
+    path: '/fotos',
+    name: 'Galeria',
+    component: () => import('../views/Galeria.vue')
   },
   {
-    path: '/fotos',
-    name: 'Fotos',
-    component: () => import('../views/Fotos.vue')
+    path: '/album/:num',
+    name: 'Album',
+    component: () => import('../views/Album.vue')
+  },
+  {
+    path: '/album/:num/foto/:id',
+    name: 'Foto',
+    component: () => import('../views/FitxaFoto.vue')
   },
   {
     path: '/usuaris',
