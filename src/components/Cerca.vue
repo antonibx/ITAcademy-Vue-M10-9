@@ -3,10 +3,10 @@
     <nav class="navbar navbar-expand-lg navbar-dark m-0">
       <img src="https://www.legislaturaneuquen.gob.ar/imagenes/lupa.png" style=" height: 20px; margin-right: -30px; z-index: 2" alt="">
       <div class="dropdown" @mouseover="veure" @mouseout="veure">
-        <input class="form-control mr-sm-2 text-center" type="text" placeholder="usuari" aria-label="Busca" v-model="$store.state.cerca" @keyup="novaCerca">
+        <input class="form-control mr-sm-2 text-center" type="text" placeholder="usuari" aria-label="Busca" v-model.trim="$store.state.cerca" @keyup="novaCerca">
         <div id="myDropdown" class="dropdown-content"> <!-- v-if="$store.state.cerca!=''" -->
           <div v-for="(element, index) in $store.state.resultats" :key="index">
-            <router-link :to="{name: 'Usuari', params: {id: element.id} }">{{element.name}}</router-link>
+            <router-link :to="{name: 'Usuari', params: {id: element.id}, props: {prova: element}, query: {element: element} }">{{element.name}}</router-link>
           </div>
           <div v-if="(($store.state.resultats).length==0)&&($store.state.cerca!='')" class="container alert alert-danger mt-3">No hi ha usuaris disponibles</div>
         </div>

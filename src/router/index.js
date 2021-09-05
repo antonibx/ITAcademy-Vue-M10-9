@@ -30,7 +30,8 @@ const routes = [
   {
     path: '/usuari/:id',
     name: 'Usuari',
-    component: () => import('../views/FitxaUsuari.vue')
+    component: () => import('../views/FitxaUsuari.vue'),
+    props: true
   }
 ];
 

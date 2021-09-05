@@ -54,6 +54,9 @@
 <script>
 export default {
     name: 'Usuari',
+    props: {
+        prova: Object
+    },
     data() {
         return {
             usuari: {},
@@ -63,17 +66,11 @@ export default {
             web: ''
         }
     },
-    created() {
-        this.inicialitza();
-        this.$store.commit('visita', {dada: this.usuari, tipus: "user", procedencia: "CREATED"});
-    },
     mounted() {
         this.inicialitza();
+        console.log("Query: "+this.$route.query.element);
+        console.log("Prop: "+this.prova);
         this.$store.commit('visita', {dada: this.usuari, tipus: "user", procedencia: "MOUNTED"});
-    },
-    updated() {
-        this.inicialitza();
-        this.$store.commit('visita', {dada: this.usuari, tipus: "user", procedencia: "UPDATED"});
     },
     computed: {
       UsuariMajus() {
