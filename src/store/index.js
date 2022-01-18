@@ -12,7 +12,6 @@ export default createStore({
   },
   mutations: {
     visita(state, nouElement) {
-      console.log("Visita "+nouElement.procedencia+" "+nouElement.dada.name);
       let posicio = -1;
       let llista;
       switch(nouElement.tipus){
@@ -20,12 +19,12 @@ export default createStore({
           llista = state.usuarisVisitats;
           llista.forEach((element, index) => {
             if(element[0].name==nouElement.dada.name) {
-              element[1]=element[1]+0.5;
+              element[1]=element[1]+1;
               posicio = index;
             }
           });
           if (posicio ==-1){
-            llista.push([nouElement.dada, 0.5]);
+            llista.push([nouElement.dada, 1]);
           }
           break;
         case "photo":

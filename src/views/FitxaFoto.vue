@@ -38,8 +38,7 @@ export default {
             web: ''
         }
     },
-    beforeUnmount() {
-        console.log(this.$store.state.fotos);
+    beforeMount() {
         this.foto = this.$store.state.fotos[this.$route.params.id-1];
         this.web = this.foto.url;
         this.$store.commit('visita', {dada: this.foto, tipus: "photo"});
